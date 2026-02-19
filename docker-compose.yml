@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+
+  embedding:
+    build: ./embedding-service
+    container_name: embedding-service
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+
+  api:
+    build: ./that-interviewer
+    container_name: that-interviewer
+    ports:
+      - "8080:8080"
+    environment:
+      - EMBEDDING_SERVICE_URL=http://embedding:8000
+    depends_on:
+      embedding:
+        condition: service_healthy
+    restart: unless-stopped
+
+  ui:
+    build: ./interviewer-ui
+    container_name: interviewer-ui
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+networks:
+  default:
+    name: interviewer-network

@@ -9,13 +9,14 @@
       "performance"
     ],
     "advancedConcepts": [
-      "CAS (Compare-And-Swap)",
+      "CAS",
       "lock striping",
       "segment removal in Java 8",
       "volatile reads"
     ],
     "difficulty": "mid",
-    "experience": "3-5"
+    "experience": "3-5",
+    "role": "Backend Engineer"
   },
   {
     "question": "Explain the internal working of HashMap in Java.",
@@ -28,17 +29,18 @@
       "rehashing"
     ],
     "advancedConcepts": [
-      "treeification threshold (8)",
+      "treeification threshold",
       "red-black tree conversion",
-      "hash spreading (h ^ h >>> 16)",
-      "capacity always power of 2"
+      "hash spreading",
+      "capacity power of 2"
     ],
     "difficulty": "mid",
-    "experience": "3-5"
+    "experience": "3-5",
+    "role": "Backend Engineer"
   },
   {
     "question": "What is the difference between checked and unchecked exceptions in Java?",
-    "idealAnswer": "Checked exceptions extend Exception (excluding RuntimeException) and must be declared in the method signature with 'throws' or caught in a try-catch block. They represent recoverable conditions (e.g., IOException, SQLException). Unchecked exceptions extend RuntimeException and do not need to be declared or caught — they typically represent programming errors (e.g., NullPointerException, IllegalArgumentException).",
+    "idealAnswer": "Checked exceptions extend Exception (excluding RuntimeException) and must be declared in the method signature with throws or caught in a try-catch block. They represent recoverable conditions. Unchecked exceptions extend RuntimeException and do not need to be declared or caught \u2014 they typically represent programming errors like NullPointerException or IllegalArgumentException.",
     "requiredConcepts": [
       "exception hierarchy",
       "checked vs unchecked",
@@ -48,15 +50,54 @@
     "advancedConcepts": [
       "exception chaining",
       "custom exception design",
-      "checked exceptions and lambdas incompatibility",
-      "anti-patterns of swallowing exceptions"
+      "checked exceptions and lambdas",
+      "swallowing exceptions"
     ],
     "difficulty": "junior",
-    "experience": "0-2"
+    "experience": "0-2",
+    "role": "Backend Engineer"
+  },
+  {
+    "question": "What are the main differences between an abstract class and an interface in Java?",
+    "idealAnswer": "An abstract class can have state (fields), constructors, and both abstract and concrete methods. A class can extend only one abstract class. An interface can only have abstract methods (pre-Java 8), default and static methods (Java 8+). A class can implement multiple interfaces. Use abstract classes for shared state/behavior; use interfaces for defining contracts.",
+    "requiredConcepts": [
+      "abstract class",
+      "interface",
+      "inheritance",
+      "multiple inheritance"
+    ],
+    "advancedConcepts": [
+      "default methods",
+      "diamond problem",
+      "functional interfaces",
+      "marker interfaces"
+    ],
+    "difficulty": "junior",
+    "experience": "0-2",
+    "role": "Backend Engineer"
+  },
+  {
+    "question": "What is the difference between == and .equals() in Java?",
+    "idealAnswer": "== compares object references (memory addresses) for objects, and values for primitives. .equals() compares logical equality. By default (Object.equals), it falls back to ==. String, Integer, and other classes override .equals() to compare content. Always use .equals() for object content comparison and be aware of null safety.",
+    "requiredConcepts": [
+      "reference equality",
+      "value equality",
+      "object comparison",
+      "String pool"
+    ],
+    "advancedConcepts": [
+      "equals and hashCode contract",
+      "intern()",
+      "autoboxing pitfalls",
+      "Comparable vs Comparator"
+    ],
+    "difficulty": "junior",
+    "experience": "0-2",
+    "role": "Backend Engineer"
   },
   {
     "question": "What is the difference between @Component, @Service, @Repository, and @Controller in Spring?",
-    "idealAnswer": "All four are specializations of @Component and trigger Spring bean registration via classpath scanning. @Service marks business logic layer components. @Repository marks data access layer components and additionally enables Spring's persistence exception translation (converting DB-specific exceptions to Spring's DataAccessException). @Controller marks MVC controllers and integrates with Spring MVC's dispatcher. Functionally they're largely interchangeable, but semantically and tooling-wise they carry important meaning.",
+    "idealAnswer": "All four are specializations of @Component and trigger Spring bean registration via classpath scanning. @Service marks business logic layer components. @Repository marks data access layer components and enables persistence exception translation. @Controller marks MVC controllers. Functionally they're largely interchangeable, but semantically they carry important layered architecture meaning.",
     "requiredConcepts": [
       "Spring stereotype annotations",
       "bean registration",
@@ -64,17 +105,94 @@
       "layered architecture"
     ],
     "advancedConcepts": [
-      "exception translation proxy for @Repository",
+      "exception translation proxy",
       "AOP proxying differences",
-      "@RestController vs @Controller",
+      "@RestController",
       "meta-annotations"
     ],
     "difficulty": "junior",
-    "experience": "1-3"
+    "experience": "1-3",
+    "role": "Backend Engineer"
+  },
+  {
+    "question": "What is dependency injection and how does Spring implement it?",
+    "idealAnswer": "Dependency injection is a design pattern where objects receive their dependencies from an external source rather than creating them. Spring implements DI through its IoC container using: constructor injection (recommended \u2014 immutable, easy to test), setter injection, and field injection (@Autowired). The container manages bean creation and wiring.",
+    "requiredConcepts": [
+      "IoC",
+      "constructor injection",
+      "setter injection",
+      "field injection"
+    ],
+    "advancedConcepts": [
+      "circular dependency",
+      "qualifier",
+      "primary bean",
+      "lazy injection"
+    ],
+    "difficulty": "junior",
+    "experience": "1-3",
+    "role": "Backend Engineer"
+  },
+  {
+    "question": "What are Java Streams and how do they differ from collections?",
+    "idealAnswer": "Java Streams represent a pipeline of operations on a sequence of elements. Unlike collections, streams are not data structures, are lazily evaluated, are consumable (can only be traversed once), and support parallelism via parallelStream(). They enable a declarative, functional style for data transformation.",
+    "requiredConcepts": [
+      "lazy evaluation",
+      "terminal vs intermediate operations",
+      "functional programming",
+      "pipeline"
+    ],
+    "advancedConcepts": [
+      "spliterator",
+      "parallel stream pitfalls",
+      "Collectors.teeing",
+      "primitive streams"
+    ],
+    "difficulty": "junior",
+    "experience": "1-3",
+    "role": "Backend Engineer"
+  },
+  {
+    "question": "What is JWT-based authentication and what are its security considerations?",
+    "idealAnswer": "JWT consists of Header, Payload, and Signature. The server signs the token with a secret or private key. The client sends the JWT in the Authorization Bearer header. The server verifies the signature and reads claims without a DB lookup \u2014 stateless. Security: use short expiry plus refresh tokens, httpOnly cookies preferred over localStorage, validate all claims.",
+    "requiredConcepts": [
+      "JWT structure",
+      "stateless authentication",
+      "signature verification",
+      "token expiry"
+    ],
+    "advancedConcepts": [
+      "JWT vs opaque tokens",
+      "refresh token rotation",
+      "JWK endpoint",
+      "alg:none attack"
+    ],
+    "difficulty": "mid",
+    "experience": "1-3",
+    "role": "Backend Engineer"
+  },
+  {
+    "question": "What is the difference between SQL joins: INNER, LEFT, RIGHT, and FULL OUTER?",
+    "idealAnswer": "INNER JOIN returns only rows where there is a match in both tables. LEFT JOIN returns all rows from the left table and matched rows from the right \u2014 unmatched right-side columns are NULL. RIGHT JOIN is the mirror of LEFT JOIN. FULL OUTER JOIN returns all rows from both tables with NULLs where there is no match.",
+    "requiredConcepts": [
+      "INNER JOIN",
+      "LEFT JOIN",
+      "NULL handling",
+      "join types"
+    ],
+    "advancedConcepts": [
+      "hash join vs nested loop join",
+      "join ordering",
+      "covering index for JOIN",
+      "lateral joins"
+    ],
+    "difficulty": "junior",
+    "experience": "1-3",
+    "role": "Backend Engineer"
   },
   {
     "question": "Explain the Spring Bean lifecycle.",
-    "idealAnswer": "Spring bean lifecycle: 1) Instantiation — Spring creates the bean instance. 2) Dependency injection — properties and constructor args are injected. 3) Aware interfaces — BeanNameAware, ApplicationContextAware callbacks are invoked. 4) BeanPostProcessor#postProcessBeforeInitialization. 5) @PostConstruct / InitializingBean#afterPropertiesSet / custom init-method. 6) BeanPostProcessor#postProcessAfterInitialization. 7) Bean is ready. 8) On context close: @PreDestroy / DisposableBean#destroy / custom destroy-method.",
+    "idealAnswer": "Spring bean lifecycle: 1) Instantiation. 2) Dependency injection. 3) Aware interfaces callbacks. 4) BeanPostProcessor#postProcessBeforeInitialization. 5) @PostConstruct / afterPropertiesSet / custom init-method. 6) BeanPostProcessor#postProcessAfterInitialization. 7) Bean is ready. 8) On context close: @PreDestroy / destroy / custom destroy-method.",
     "requiredConcepts": [
       "instantiation",
       "dependency injection",
@@ -85,15 +203,15 @@
       "BeanPostProcessor",
       "BeanFactoryPostProcessor",
       "SmartInitializingSingleton",
-      "prototype scope and destruction",
       "circular dependency handling"
     ],
     "difficulty": "mid",
-    "experience": "3-5"
+    "experience": "3-5",
+    "role": "Backend Engineer"
   },
   {
-    "question": "What is the difference between JPA's FetchType.LAZY and FetchType.EAGER?",
-    "idealAnswer": "EAGER loading fetches the associated entity/collection immediately when the parent entity is loaded, using a JOIN or additional SELECT. LAZY loading defers fetching until the association is first accessed. LAZY is generally preferred for collections to avoid loading large datasets unnecessarily. However, LAZY can cause LazyInitializationException if the Hibernate session is closed before the proxy is initialized.",
+    "question": "What is the difference between JPA FetchType.LAZY and FetchType.EAGER?",
+    "idealAnswer": "EAGER loading fetches the associated entity/collection immediately when the parent entity is loaded. LAZY loading defers fetching until the association is first accessed. LAZY is generally preferred for collections to avoid loading large datasets unnecessarily. However, LAZY can cause LazyInitializationException if the Hibernate session is closed before the proxy is initialized.",
     "requiredConcepts": [
       "lazy vs eager loading",
       "N+1 problem",
@@ -101,205 +219,57 @@
       "session scope"
     ],
     "advancedConcepts": [
-      "LazyInitializationException causes and fixes",
+      "LazyInitializationException",
       "fetch join in JPQL",
-      "EntityGraph for dynamic fetching",
+      "EntityGraph",
       "Hibernate batch fetching"
     ],
     "difficulty": "mid",
-    "experience": "3-5"
+    "experience": "3-5",
+    "role": "Backend Engineer"
   },
   {
     "question": "What is the N+1 query problem and how do you solve it?",
-    "idealAnswer": "The N+1 problem occurs when loading N parent entities triggers N additional queries to fetch their associations. For example, loading 100 Orders and accessing order.getItems() for each triggers 100 extra SELECT statements. Solutions include: using JOIN FETCH in JPQL, defining @EntityGraph to eagerly load specific associations, enabling Hibernate batch fetching (@BatchSize), or using DTO projections.",
+    "idealAnswer": "The N+1 problem occurs when loading N parent entities triggers N additional queries to fetch their associations. Solutions include: using JOIN FETCH in JPQL, defining @EntityGraph to eagerly load specific associations, enabling Hibernate batch fetching with @BatchSize, or using DTO projections.",
     "requiredConcepts": [
       "lazy loading",
       "association fetching",
       "query optimization",
-      "JPA/Hibernate"
+      "JPA Hibernate"
     ],
     "advancedConcepts": [
-      "JOIN FETCH vs EntityGraph trade-offs",
-      "Hibernate statistics to detect N+1",
+      "JOIN FETCH vs EntityGraph",
+      "Hibernate statistics",
       "subselect fetching",
-      "DTO projections with JPQL constructor expressions"
+      "DTO projections"
     ],
     "difficulty": "mid",
-    "experience": "3-5"
+    "experience": "3-5",
+    "role": "Backend Engineer"
   },
   {
-    "question": "Explain how Spring's @Transactional works internally.",
-    "idealAnswer": "@Transactional is implemented via AOP proxying. When a bean method annotated with @Transactional is called, Spring's proxy intercepts the call, begins a transaction via the PlatformTransactionManager, executes the method, and commits or rolls back based on the outcome. By default, rollback occurs only for unchecked exceptions. The annotation has no effect when calling a @Transactional method from within the same class (self-invocation) because the call bypasses the proxy.",
-    "requiredConcepts": [
-      "AOP proxy",
-      "transaction management",
-      "commit/rollback",
-      "propagation"
-    ],
-    "advancedConcepts": [
-      "self-invocation problem",
-      "transaction propagation levels (REQUIRES_NEW, NESTED)",
-      "isolation levels",
-      "readOnly optimization",
-      "TransactionSynchronizationManager"
-    ],
-    "difficulty": "senior",
-    "experience": "5+"
-  },
-  {
-    "question": "What are the SOLID principles? Give a Java example for each.",
-    "idealAnswer": "S — Single Responsibility: a class should have one reason to change (e.g., separate UserService from EmailService). O — Open/Closed: open for extension, closed for modification (e.g., use strategy pattern instead of if-else chains). L — Liskov Substitution: subclasses must be substitutable for their base class without breaking behavior. I — Interface Segregation: prefer many small interfaces over one fat interface. D — Dependency Inversion: depend on abstractions, not concretions (inject interfaces, not implementations).",
+    "question": "What are the SOLID principles?",
+    "idealAnswer": "S \u2014 Single Responsibility: a class should have one reason to change. O \u2014 Open/Closed: open for extension, closed for modification. L \u2014 Liskov Substitution: subclasses must be substitutable for their base class. I \u2014 Interface Segregation: prefer many small interfaces over one fat interface. D \u2014 Dependency Inversion: depend on abstractions, not concretions.",
     "requiredConcepts": [
       "SRP",
       "OCP",
       "LSP",
       "ISP",
-      "DIP",
-      "design principles"
+      "DIP"
     ],
     "advancedConcepts": [
       "SOLID violations as code smells",
-      "how Spring DI enforces DIP",
+      "Spring DI and DIP",
       "LSP violations with exceptions",
-      "ISP and microservice API design"
+      "ISP and API design"
     ],
     "difficulty": "mid",
-    "experience": "3-5"
-  },
-  {
-    "question": "What is the difference between optimistic and pessimistic locking in JPA?",
-    "idealAnswer": "Optimistic locking assumes conflicts are rare. It uses a @Version field (integer or timestamp) — before updating, JPA checks the version hasn't changed since the entity was read. If it has, it throws OptimisticLockException. No database lock is held during the read. Pessimistic locking acquires a database-level lock (SELECT FOR UPDATE) immediately on read, preventing other transactions from modifying the row until the lock is released.",
-    "requiredConcepts": [
-      "concurrency control",
-      "version field",
-      "database locking",
-      "transaction isolation"
-    ],
-    "advancedConcepts": [
-      "LockModeType.PESSIMISTIC_READ vs WRITE",
-      "optimistic lock retry strategies",
-      "deadlock risk with pessimistic locking",
-      "MVCC in databases"
-    ],
-    "difficulty": "senior",
-    "experience": "5+"
-  },
-  {
-    "question": "How does the Java memory model (JMM) work? What guarantees does 'volatile' provide?",
-    "idealAnswer": "The JMM defines how threads interact through memory. Each thread may cache variables in its working memory (CPU cache/registers). Without synchronization, writes by one thread may not be visible to another. The 'volatile' keyword guarantees visibility: a write to a volatile variable is immediately flushed to main memory, and a read always fetches from main memory. It also prevents instruction reordering around the volatile access. However, volatile does not guarantee atomicity for compound operations like i++.",
-    "requiredConcepts": [
-      "visibility",
-      "happens-before",
-      "volatile",
-      "memory caching"
-    ],
-    "advancedConcepts": [
-      "happens-before relationship",
-      "double-checked locking with volatile",
-      "volatile vs AtomicInteger",
-      "CPU cache coherence protocols"
-    ],
-    "difficulty": "senior",
-    "experience": "5+"
-  },
-  {
-    "question": "What are the main garbage collection algorithms in the JVM, and how do you choose between them?",
-    "idealAnswer": "Serial GC: single-threaded, for small heaps. Parallel GC: multi-threaded throughput-focused, suitable for batch workloads. G1 GC (default since Java 9): splits heap into regions, aims for predictable pause times, good balance for most applications. ZGC and Shenandoah: ultra-low latency collectors with sub-millisecond pauses, suitable for large heaps and latency-sensitive apps. Choice depends on: heap size, latency requirements, and throughput needs.",
-    "requiredConcepts": [
-      "GC algorithms",
-      "heap regions",
-      "pause times",
-      "throughput vs latency"
-    ],
-    "advancedConcepts": [
-      "generational hypothesis",
-      "GC tuning flags (-Xmx, -XX:MaxGCPauseMillis)",
-      "GC log analysis",
-      "ZGC concurrent phases",
-      "memory leak detection"
-    ],
-    "difficulty": "senior",
-    "experience": "5+"
-  },
-  {
-    "question": "What is Spring Security's filter chain and how does authentication work?",
-    "idealAnswer": "Spring Security is implemented as a chain of servlet filters (SecurityFilterChain). Key filters include: UsernamePasswordAuthenticationFilter (processes login form), BasicAuthenticationFilter, BearerTokenAuthenticationFilter (JWT), and ExceptionTranslationFilter. When a request arrives, filters are applied in order. The authentication filter extracts credentials, creates an Authentication object, and passes it to AuthenticationManager (typically ProviderManager), which delegates to AuthenticationProviders. On success, the Authentication is stored in SecurityContextHolder.",
-    "requiredConcepts": [
-      "filter chain",
-      "AuthenticationManager",
-      "SecurityContext",
-      "AuthenticationProvider"
-    ],
-    "advancedConcepts": [
-      "JWT stateless authentication flow",
-      "OAuth2 resource server configuration",
-      "method security (@PreAuthorize)",
-      "SecurityContextHolder strategy (ThreadLocal)",
-      "CSRF token handling"
-    ],
-    "difficulty": "senior",
-    "experience": "5+"
-  },
-  {
-    "question": "Explain the difference between REST and gRPC. When would you choose one over the other?",
-    "idealAnswer": "REST uses HTTP/1.1 with JSON (typically), is human-readable, widely supported, and stateless. gRPC uses HTTP/2 with Protocol Buffers (binary), is strongly typed, supports streaming (unary, server-streaming, client-streaming, bidirectional), and has lower latency and higher throughput. Choose REST for public APIs, browser clients, or when interoperability matters. Choose gRPC for internal microservice communication requiring high performance, streaming, or strong contracts.",
-    "requiredConcepts": [
-      "HTTP/1.1 vs HTTP/2",
-      "serialization formats",
-      "API contract",
-      "streaming"
-    ],
-    "advancedConcepts": [
-      "Protocol Buffers schema evolution",
-      "gRPC interceptors vs Spring filters",
-      "gRPC-web for browser support",
-      "REST HATEOAS",
-      "bidirectional streaming use cases"
-    ],
-    "difficulty": "mid",
-    "experience": "3-5"
-  },
-  {
-    "question": "What is eventual consistency and how does it apply to microservices?",
-    "idealAnswer": "Eventual consistency means that, given no new updates, all replicas of data will converge to the same value over time — but reads may return stale data in the interim. In microservices, each service owns its database, and synchronizing state across services happens asynchronously (e.g., via events). Patterns like the Saga pattern, CQRS, and event sourcing are used to manage consistency without distributed transactions.",
-    "requiredConcepts": [
-      "consistency models",
-      "distributed systems",
-      "asynchronous communication",
-      "CAP theorem"
-    ],
-    "advancedConcepts": [
-      "Saga pattern (choreography vs orchestration)",
-      "outbox pattern",
-      "idempotent consumers",
-      "compensating transactions",
-      "event sourcing"
-    ],
-    "difficulty": "senior",
-    "experience": "5+"
-  },
-  {
-    "question": "What is the difference between ExecutorService, ForkJoinPool, and virtual threads (Project Loom)?",
-    "idealAnswer": "ExecutorService manages a pool of OS threads for executing tasks; thread count is fixed or bounded. ForkJoinPool is optimized for recursive divide-and-conquer tasks using work-stealing — idle threads steal tasks from busy threads' queues. Virtual threads (Java 21+, Project Loom) are lightweight JVM-managed threads that are cheap to create (millions possible), blocking operations unmount the carrier thread rather than blocking it, making them ideal for high-concurrency I/O-bound workloads without reactive programming complexity.",
-    "requiredConcepts": [
-      "thread pools",
-      "concurrency",
-      "task execution",
-      "blocking vs non-blocking"
-    ],
-    "advancedConcepts": [
-      "work-stealing algorithm",
-      "virtual thread pinning",
-      "structured concurrency (JEP 428)",
-      "carrier thread vs virtual thread",
-      "reactive vs Loom trade-offs"
-    ],
-    "difficulty": "senior",
-    "experience": "5+"
+    "experience": "3-5",
+    "role": "Backend Engineer"
   },
   {
     "question": "How does database indexing work and when should you avoid indexes?",
-    "idealAnswer": "An index is a data structure (commonly B-tree) that allows the database to find rows without a full table scan. Indexes speed up SELECT queries on indexed columns but add overhead to INSERT/UPDATE/DELETE because the index must also be updated. Avoid indexes on: columns with very low cardinality (e.g., boolean flags), small tables where full scans are faster, columns rarely used in WHERE/JOIN/ORDER BY clauses, and write-heavy tables where index maintenance cost outweighs read benefits.",
+    "idealAnswer": "An index is a B-tree data structure that allows the database to find rows without a full table scan. Indexes speed up SELECT queries but add overhead to INSERT/UPDATE/DELETE. Avoid indexes on columns with very low cardinality, small tables, columns rarely used in WHERE/JOIN/ORDER BY, and write-heavy tables.",
     "requiredConcepts": [
       "B-tree index",
       "query optimization",
@@ -310,70 +280,15 @@
       "composite index column order",
       "covering indexes",
       "index selectivity",
-      "partial indexes",
-      "EXPLAIN ANALYZE output interpretation"
+      "EXPLAIN ANALYZE"
     ],
     "difficulty": "mid",
-    "experience": "3-5"
+    "experience": "3-5",
+    "role": "Backend Engineer"
   },
   {
-    "question": "What are the differences between monolithic and microservices architectures?",
-    "idealAnswer": "A monolith is a single deployable unit where all components share the same process and database. Advantages: simpler development, testing, and deployment initially; easier transactions and data consistency. Microservices decompose the application into independently deployable services, each with its own database. Advantages: independent scaling, technology flexibility, fault isolation, team autonomy. Drawbacks of microservices: increased operational complexity, distributed system challenges (network latency, data consistency, tracing).",
-    "requiredConcepts": [
-      "deployment units",
-      "service boundaries",
-      "scalability",
-      "data ownership"
-    ],
-    "advancedConcepts": [
-      "strangler fig migration pattern",
-      "service mesh (Istio)",
-      "distributed tracing (OpenTelemetry)",
-      "API gateway patterns",
-      "domain-driven design for service decomposition"
-    ],
-    "difficulty": "mid",
-    "experience": "3-5"
-  },
-  {
-    "question": "Explain Java's CompletableFuture and its advantages over Future.",
-    "idealAnswer": "Future represents an async computation result but blocks on get() and offers no composition. CompletableFuture extends Future and adds: non-blocking callbacks (thenApply, thenAccept, thenRun), composition (thenCompose, thenCombine), error handling (exceptionally, handle), and the ability to complete manually. It enables building non-blocking async pipelines without blocking threads. Multiple CompletableFutures can be combined with allOf/anyOf.",
-    "requiredConcepts": [
-      "asynchronous programming",
-      "non-blocking",
-      "callback chaining",
-      "Future limitations"
-    ],
-    "advancedConcepts": [
-      "custom executor for CompletableFuture stages",
-      "exception propagation in pipelines",
-      "thenCompose vs thenApply distinction",
-      "CompletableFuture vs reactive streams backpressure"
-    ],
-    "difficulty": "mid",
-    "experience": "3-5"
-  },
-  {
-    "question": "What is the difference between @Bean and @Component in Spring?",
-    "idealAnswer": "@Component (and its specializations) is a class-level annotation that marks a class for auto-detection via classpath scanning. @Bean is a method-level annotation inside a @Configuration class, used to explicitly declare and configure a bean, typically for third-party classes you can't annotate directly. @Bean gives full programmatic control over the instantiation logic, while @Component relies on Spring's auto-wiring.",
-    "requiredConcepts": [
-      "bean declaration",
-      "component scanning",
-      "@Configuration",
-      "Spring IoC"
-    ],
-    "advancedConcepts": [
-      "CGLIB proxying of @Configuration classes",
-      "@Bean in @Component vs @Configuration (lite mode)",
-      "bean overriding",
-      "conditional beans (@ConditionalOnMissingBean)"
-    ],
-    "difficulty": "junior",
-    "experience": "1-3"
-  },
-  {
-    "question": "What is connection pooling and why is it important? How does HikariCP work?",
-    "idealAnswer": "Creating a new database connection is expensive (TCP handshake, authentication, session setup). Connection pooling maintains a pool of pre-established connections that are reused across requests. HikariCP is the default Spring Boot connection pool — it maintains a fixed pool of connections, borrows a connection to a thread for the duration of a DB operation, then returns it to the pool. It uses a lock-free design with ConcurrentBag for high throughput. Key config: maximumPoolSize, minimumIdle, connectionTimeout.",
+    "question": "What is connection pooling and how does HikariCP work?",
+    "idealAnswer": "Connection pooling maintains a pool of pre-established DB connections that are reused across requests. HikariCP is the default Spring Boot connection pool. It maintains a fixed pool using a lock-free ConcurrentBag design. Key config: maximumPoolSize, minimumIdle, connectionTimeout.",
     "requiredConcepts": [
       "connection reuse",
       "pool sizing",
@@ -381,18 +296,151 @@
       "latency reduction"
     ],
     "advancedConcepts": [
-      "HikariCP ConcurrentBag internals",
-      "pool exhaustion and connectionTimeout",
-      "keepAliveTime vs idleTimeout",
-      "connection validation (connectionTestQuery)",
-      "pool sizing formula (Little's Law)"
+      "HikariCP ConcurrentBag",
+      "pool exhaustion",
+      "keepAliveTime",
+      "pool sizing formula"
     ],
     "difficulty": "mid",
-    "experience": "3-5"
+    "experience": "3-5",
+    "role": "Backend Engineer"
+  },
+  {
+    "question": "What is the difference between REST and gRPC?",
+    "idealAnswer": "REST uses HTTP/1.1 with JSON, is human-readable and widely supported. gRPC uses HTTP/2 with Protocol Buffers (binary), supports streaming, and has lower latency and higher throughput. Choose REST for public APIs or browser clients. Choose gRPC for internal microservice communication requiring high performance.",
+    "requiredConcepts": [
+      "HTTP/1.1 vs HTTP/2",
+      "serialization formats",
+      "API contract",
+      "streaming"
+    ],
+    "advancedConcepts": [
+      "Protocol Buffers schema evolution",
+      "gRPC interceptors",
+      "gRPC-web",
+      "REST HATEOAS"
+    ],
+    "difficulty": "mid",
+    "experience": "3-5",
+    "role": "Backend Engineer"
+  },
+  {
+    "question": "What is the difference between monolithic and microservices architectures?",
+    "idealAnswer": "A monolith is a single deployable unit sharing the same process and database. Microservices decompose into independently deployable services, each with its own database. Microservices advantages: independent scaling, technology flexibility, fault isolation. Drawbacks: increased operational complexity, network latency, data consistency challenges.",
+    "requiredConcepts": [
+      "deployment units",
+      "service boundaries",
+      "scalability",
+      "data ownership"
+    ],
+    "advancedConcepts": [
+      "strangler fig pattern",
+      "service mesh",
+      "distributed tracing",
+      "API gateway patterns"
+    ],
+    "difficulty": "mid",
+    "experience": "3-5",
+    "role": "Backend Engineer"
+  },
+  {
+    "question": "Explain how Spring @Transactional works internally.",
+    "idealAnswer": "@Transactional is implemented via AOP proxying. Spring's proxy intercepts the call, begins a transaction via PlatformTransactionManager, executes the method, and commits or rolls back. By default, rollback occurs only for unchecked exceptions. Self-invocation bypasses the proxy and will not start a transaction.",
+    "requiredConcepts": [
+      "AOP proxy",
+      "transaction management",
+      "commit/rollback",
+      "propagation"
+    ],
+    "advancedConcepts": [
+      "self-invocation problem",
+      "propagation levels",
+      "isolation levels",
+      "readOnly optimization"
+    ],
+    "difficulty": "senior",
+    "experience": "5+",
+    "role": "Backend Engineer"
+  },
+  {
+    "question": "How does the Java memory model work and what guarantees does volatile provide?",
+    "idealAnswer": "The JMM defines how threads interact through memory. Without synchronization, writes by one thread may not be visible to another. The volatile keyword guarantees visibility: a write is immediately flushed to main memory, and a read always fetches from main memory. It also prevents instruction reordering. However, volatile does not guarantee atomicity for compound operations like i++.",
+    "requiredConcepts": [
+      "visibility",
+      "happens-before",
+      "volatile",
+      "memory caching"
+    ],
+    "advancedConcepts": [
+      "happens-before relationship",
+      "double-checked locking",
+      "volatile vs AtomicInteger",
+      "CPU cache coherence"
+    ],
+    "difficulty": "senior",
+    "experience": "5+",
+    "role": "Backend Engineer"
+  },
+  {
+    "question": "What are common GC algorithms in the JVM and how do you choose between them?",
+    "idealAnswer": "Serial GC: single-threaded, for small heaps. Parallel GC: multi-threaded throughput-focused. G1 GC (default since Java 9): splits heap into regions for predictable pause times. ZGC and Shenandoah: ultra-low latency. Choice depends on heap size, latency requirements, and throughput needs.",
+    "requiredConcepts": [
+      "GC algorithms",
+      "heap regions",
+      "pause times",
+      "throughput vs latency"
+    ],
+    "advancedConcepts": [
+      "generational hypothesis",
+      "GC tuning flags",
+      "GC log analysis",
+      "ZGC concurrent phases"
+    ],
+    "difficulty": "senior",
+    "experience": "5+",
+    "role": "Backend Engineer"
+  },
+  {
+    "question": "What is the difference between optimistic and pessimistic locking in JPA?",
+    "idealAnswer": "Optimistic locking uses a @Version field. Before updating, JPA checks the version has not changed since read. If it has, OptimisticLockException is thrown \u2014 no database lock is held during the read. Pessimistic locking acquires a database-level lock (SELECT FOR UPDATE) immediately on read, preventing other transactions from modifying the row.",
+    "requiredConcepts": [
+      "concurrency control",
+      "version field",
+      "database locking",
+      "transaction isolation"
+    ],
+    "advancedConcepts": [
+      "LockModeType.PESSIMISTIC_READ vs WRITE",
+      "optimistic lock retry",
+      "deadlock risk",
+      "MVCC"
+    ],
+    "difficulty": "senior",
+    "experience": "5+",
+    "role": "Backend Engineer"
+  },
+  {
+    "question": "What is eventual consistency and how does it apply to microservices?",
+    "idealAnswer": "Eventual consistency means that given no new updates, all replicas will converge to the same value over time. In microservices, state synchronization happens asynchronously via events. Patterns like Saga, CQRS, and event sourcing are used to manage consistency without distributed transactions.",
+    "requiredConcepts": [
+      "consistency models",
+      "distributed systems",
+      "asynchronous communication",
+      "CAP theorem"
+    ],
+    "advancedConcepts": [
+      "Saga pattern",
+      "outbox pattern",
+      "idempotent consumers",
+      "event sourcing"
+    ],
+    "difficulty": "senior",
+    "experience": "5+",
+    "role": "Backend Engineer"
   },
   {
     "question": "How does Kafka ensure message ordering and exactly-once delivery?",
-    "idealAnswer": "Kafka guarantees ordering within a partition — messages with the same partition key go to the same partition, preserving order per key. Across partitions, ordering is not guaranteed. For exactly-once semantics (EOS): producers use idempotent producers (enable.idempotence=true) to deduplicate retried messages, and transactional APIs to atomically write to multiple partitions. Consumers use isolation.level=read_committed to only read committed transactional messages.",
+    "idealAnswer": "Kafka guarantees ordering within a partition. For exactly-once semantics: producers use idempotent producers (enable.idempotence=true) to deduplicate retried messages, and transactional APIs to atomically write to multiple partitions. Consumers use isolation.level=read_committed to only read committed transactional messages.",
     "requiredConcepts": [
       "partition ordering",
       "at-least-once delivery",
@@ -401,55 +449,17 @@
     ],
     "advancedConcepts": [
       "Kafka transactions API",
-      "producer epoch and sequence numbers",
+      "producer epoch",
       "Kafka Streams EOS",
-      "outbox pattern as alternative",
-      "offset management strategies"
+      "outbox pattern"
     ],
     "difficulty": "senior",
-    "experience": "5+"
+    "experience": "5+",
+    "role": "Backend Engineer"
   },
   {
-    "question": "What are common caching strategies and how would you implement caching in a Spring Boot application?",
-    "idealAnswer": "Common strategies: Cache-aside (app checks cache, loads from DB on miss), Write-through (write to cache and DB simultaneously), Write-behind (write to cache, async flush to DB), Read-through (cache loads from DB on miss automatically). In Spring Boot, use @EnableCaching with @Cacheable, @CacheEvict, @CachePut annotations. Configure a CacheManager backed by Caffeine (in-memory) or Redis (distributed). Consider TTL, cache invalidation, and cache stampede protection.",
-    "requiredConcepts": [
-      "cache-aside",
-      "TTL",
-      "cache invalidation",
-      "@Cacheable"
-    ],
-    "advancedConcepts": [
-      "cache stampede / thundering herd",
-      "distributed cache consistency",
-      "Caffeine vs Redis trade-offs",
-      "conditional caching (@Cacheable condition)",
-      "cache warming strategies"
-    ],
-    "difficulty": "mid",
-    "experience": "3-5"
-  },
-  {
-    "question": "Explain the difference between INNER JOIN, LEFT JOIN, and how to optimize JOIN queries.",
-    "idealAnswer": "INNER JOIN returns only rows where there's a match in both tables. LEFT JOIN returns all rows from the left table and matched rows from the right; unmatched right-side columns are NULL. To optimize JOINs: ensure JOIN columns are indexed, avoid joining on non-indexed or computed columns, reduce the result set before joining using WHERE clauses, use EXPLAIN to check query plans, avoid SELECT * across JOINs, and consider denormalization for read-heavy workloads.",
-    "requiredConcepts": [
-      "JOIN types",
-      "NULL handling",
-      "indexing JOIN columns",
-      "query execution plan"
-    ],
-    "advancedConcepts": [
-      "hash join vs nested loop join vs sort-merge join",
-      "join ordering by optimizer",
-      "statistics and query planner",
-      "covering index for JOIN columns",
-      "lateral joins"
-    ],
-    "difficulty": "mid",
-    "experience": "3-5"
-  },
-  {
-    "question": "What is circuit breaker pattern and how is it implemented with Resilience4j?",
-    "idealAnswer": "The circuit breaker pattern prevents cascading failures in distributed systems. It wraps remote calls and tracks failure rates. States: CLOSED (normal, calls pass through), OPEN (failures exceeded threshold, calls fail fast without hitting the remote service), HALF_OPEN (after a wait duration, test calls are allowed to check if the service recovered). With Resilience4j, use @CircuitBreaker annotation or CircuitBreakerRegistry, configuring failureRateThreshold, waitDurationInOpenState, and permittedNumberOfCallsInHalfOpenState.",
+    "question": "What is the circuit breaker pattern and how is it implemented with Resilience4j?",
+    "idealAnswer": "The circuit breaker prevents cascading failures. States: CLOSED (calls pass through), OPEN (fail fast without hitting remote), HALF_OPEN (test calls to check recovery). With Resilience4j, configure failureRateThreshold, waitDurationInOpenState, and permittedNumberOfCallsInHalfOpenState.",
     "requiredConcepts": [
       "circuit breaker states",
       "fail fast",
@@ -457,108 +467,583 @@
       "cascading failures"
     ],
     "advancedConcepts": [
-      "sliding window (count-based vs time-based)",
-      "bulkhead pattern combination",
+      "sliding window",
+      "bulkhead pattern",
       "fallback methods",
-      "Resilience4j metrics with Micrometer",
-      "retry vs circuit breaker interaction"
+      "Resilience4j metrics"
     ],
     "difficulty": "senior",
-    "experience": "5+"
+    "experience": "5+",
+    "role": "Backend Engineer"
   },
   {
-    "question": "What is the difference between @PathVariable, @RequestParam, and @RequestBody in Spring MVC?",
-    "idealAnswer": "@PathVariable extracts values from the URI path (e.g., /users/{id}). @RequestParam extracts query string parameters (e.g., /users?page=1). @RequestBody deserializes the HTTP request body (typically JSON) into a Java object using HttpMessageConverters (e.g., Jackson). @PathVariable and @RequestParam are used for simple scalar values, while @RequestBody is used for complex payloads in POST/PUT requests.",
+    "question": "What is the difference between the Virtual DOM and the real DOM?",
+    "idealAnswer": "The real DOM is the browser's actual representation of the HTML document. Direct DOM manipulation is slow because changes trigger reflows and repaints. The Virtual DOM is a lightweight JavaScript object tree maintained in memory. On state changes, React diffs the new Virtual DOM against the previous one and applies only the minimal set of real DOM changes \u2014 reconciliation.",
     "requiredConcepts": [
-      "HTTP request structure",
-      "URI templates",
-      "query parameters",
-      "request body deserialization"
+      "DOM manipulation",
+      "reconciliation",
+      "diffing",
+      "performance"
     ],
     "advancedConcepts": [
-      "content negotiation",
-      "HttpMessageConverter customization",
-      "validation with @Valid on @RequestBody",
-      "@RequestPart for multipart",
-      "BindingResult for validation errors"
+      "Fiber architecture",
+      "key prop importance",
+      "batched updates",
+      "concurrent rendering"
     ],
     "difficulty": "junior",
-    "experience": "1-3"
+    "experience": "1-3",
+    "role": "Frontend Engineer"
   },
   {
-    "question": "How would you design a rate limiter for a REST API?",
-    "idealAnswer": "Common algorithms: Token Bucket (tokens added at fixed rate, request consumes a token — allows bursts), Leaky Bucket (requests processed at fixed rate — smooths bursts), Fixed Window Counter (count requests per time window), Sliding Window Log (track timestamps of requests in a rolling window). In Java/Spring: use Resilience4j RateLimiter, Bucket4j with Redis for distributed rate limiting, or API Gateway-level rate limiting. Store counters in Redis for distributed environments with atomic INCR + EXPIRE.",
+    "question": "What is CSS specificity and how is it calculated?",
+    "idealAnswer": "Specificity determines which CSS rule applies when multiple rules target the same element. It is calculated as (a, b, c): a = ID selectors, b = class/attribute/pseudo-class selectors, c = type/pseudo-element selectors. Inline styles beat all. !important overrides specificity entirely. Higher specificity wins; equal specificity: last rule wins.",
     "requiredConcepts": [
-      "rate limiting algorithms",
-      "token bucket",
-      "fixed window",
-      "distributed state"
+      "specificity calculation",
+      "ID vs class vs element",
+      "cascade",
+      "inheritance"
     ],
     "advancedConcepts": [
-      "sliding window log vs sliding window counter",
-      "Redis Lua scripts for atomic operations",
-      "rate limit headers (X-RateLimit-*)",
-      "rate limiting by IP vs user vs API key",
-      "Resilience4j RateLimiter internals"
-    ],
-    "difficulty": "senior",
-    "experience": "5+"
-  },
-  {
-    "question": "What are Java Streams and how do they differ from collections?",
-    "idealAnswer": "Java Streams (java.util.stream) represent a pipeline of operations on a sequence of elements. Unlike collections, streams: are not data structures (they don't store elements), are lazily evaluated (intermediate operations only run when a terminal operation is invoked), are consumable (can only be traversed once), and support parallelism via parallelStream(). Collections are in-memory data structures. Streams enable a declarative, functional style for data transformation and aggregation.",
-    "requiredConcepts": [
-      "lazy evaluation",
-      "terminal vs intermediate operations",
-      "functional programming",
-      "pipeline"
-    ],
-    "advancedConcepts": [
-      "spliterator for custom streams",
-      "parallel stream pitfalls (shared mutable state)",
-      "Collectors.teeing (Java 12)",
-      "primitive streams (IntStream) for performance",
-      "stream short-circuiting"
+      "!important pitfalls",
+      "CSS layers",
+      "specificity in CSS modules",
+      "BEM methodology"
     ],
     "difficulty": "junior",
-    "experience": "1-3"
+    "experience": "1-3",
+    "role": "Frontend Engineer"
   },
   {
-    "question": "Explain the difference between Spring's ApplicationContext and BeanFactory.",
-    "idealAnswer": "BeanFactory is the basic IoC container providing bean instantiation and dependency injection. ApplicationContext extends BeanFactory and adds: internationalization (MessageSource), event publication (ApplicationEventPublisher), AOP integration, environment abstraction, and eager initialization of singleton beans at startup. In practice, ApplicationContext (e.g., AnnotationConfigApplicationContext, SpringApplication) is always used; BeanFactory is rarely used directly.",
+    "question": "What is the difference between localStorage, sessionStorage, and cookies?",
+    "idealAnswer": "localStorage persists data indefinitely until explicitly cleared and is not sent to the server. sessionStorage persists for the duration of the browser tab session. Cookies are sent to the server on every request, have an expiry, can be httpOnly and Secure. Use httpOnly cookies for auth tokens, localStorage for UI preferences.",
     "requiredConcepts": [
-      "IoC container",
-      "bean lifecycle",
-      "eager vs lazy initialization",
-      "Spring context hierarchy"
+      "persistence",
+      "scope",
+      "server communication",
+      "security"
     ],
     "advancedConcepts": [
-      "ApplicationContext event system",
-      "parent/child context hierarchy (Spring MVC)",
-      "BeanDefinitionRegistry",
-      "AnnotationConfigApplicationContext vs ClassPathXmlApplicationContext",
-      "context refresh lifecycle"
+      "httpOnly cookies",
+      "SameSite attribute",
+      "XSS and storage",
+      "IndexedDB"
+    ],
+    "difficulty": "junior",
+    "experience": "1-3",
+    "role": "Frontend Engineer"
+  },
+  {
+    "question": "What is event delegation and why is it useful?",
+    "idealAnswer": "Event delegation adds a single listener to a parent element instead of individual children, using event.target to identify which child triggered it. This works via event bubbling. Benefits: fewer event listeners (better memory), works for dynamically added elements, and simpler code.",
+    "requiredConcepts": [
+      "event bubbling",
+      "event.target",
+      "event listeners",
+      "dynamic elements"
+    ],
+    "advancedConcepts": [
+      "event capturing vs bubbling",
+      "stopPropagation",
+      "performance at scale",
+      "event delegation in React"
+    ],
+    "difficulty": "junior",
+    "experience": "1-3",
+    "role": "Frontend Engineer"
+  },
+  {
+    "question": "What are React hooks rules and why do they exist?",
+    "idealAnswer": "Rules: 1) Only call hooks at the top level \u2014 never inside loops, conditions, or nested functions. 2) Only call hooks from React function components or custom hooks. These rules exist because React relies on the order of hook calls to associate state and effects with the correct component instance between renders.",
+    "requiredConcepts": [
+      "hook rules",
+      "call order",
+      "function components",
+      "fiber"
+    ],
+    "advancedConcepts": [
+      "eslint-plugin-react-hooks",
+      "custom hooks patterns",
+      "useReducer vs useState",
+      "context and hooks"
     ],
     "difficulty": "mid",
-    "experience": "3-5"
+    "experience": "1-3",
+    "role": "Frontend Engineer"
   },
   {
-    "question": "How does JWT-based authentication work and what are its security considerations?",
-    "idealAnswer": "JWT (JSON Web Token) consists of three base64-encoded parts: Header (algorithm), Payload (claims like sub, exp, roles), and Signature. The server signs the token with a secret (HMAC) or private key (RSA/ECDSA). The client sends the JWT in the Authorization: Bearer header. The server verifies the signature and reads claims without a database lookup — making JWT stateless. Security considerations: use short expiry + refresh tokens, store securely (httpOnly cookies preferred over localStorage), validate all claims (exp, iss, aud), and use asymmetric keys for multi-service architectures.",
+    "question": "What is CORS and how do browsers enforce it?",
+    "idealAnswer": "CORS (Cross-Origin Resource Sharing) restricts HTTP requests made from one origin to a different origin. The browser sends a preflight OPTIONS request for non-simple requests. The server must respond with Access-Control-Allow-Origin headers. CORS is enforced by the browser \u2014 servers always receive the request regardless.",
     "requiredConcepts": [
-      "JWT structure",
-      "stateless authentication",
-      "signature verification",
-      "token expiry"
+      "same-origin policy",
+      "preflight request",
+      "Access-Control headers",
+      "browser enforcement"
     ],
     "advancedConcepts": [
-      "JWT vs opaque tokens",
+      "simple vs non-simple requests",
+      "credentialed requests",
+      "CORS vs CSRF",
+      "server-side bypass"
+    ],
+    "difficulty": "mid",
+    "experience": "1-3",
+    "role": "Frontend Engineer"
+  },
+  {
+    "question": "What are CSS Flexbox and Grid and when do you use each?",
+    "idealAnswer": "Flexbox is one-dimensional \u2014 handles either rows OR columns. Best for components like nav bars and button groups. Grid is two-dimensional \u2014 handles rows AND columns simultaneously. Best for page layouts and card grids. They can be nested: Grid for outer page structure, Flexbox for inner component alignment.",
+    "requiredConcepts": [
+      "flexbox",
+      "grid",
+      "one vs two dimensional",
+      "alignment"
+    ],
+    "advancedConcepts": [
+      "grid template areas",
+      "subgrid",
+      "auto-fill vs auto-fit",
+      "intrinsic sizing"
+    ],
+    "difficulty": "junior",
+    "experience": "1-3",
+    "role": "Frontend Engineer"
+  },
+  {
+    "question": "Explain the JavaScript event loop and how async/await works under the hood.",
+    "idealAnswer": "JavaScript is single-threaded. The event loop checks the call stack and message queue. When the stack is empty, it picks tasks from the queue. Microtasks (Promises) have priority over macrotasks (setTimeout). async/await is syntactic sugar over Promises \u2014 await pauses the async function until the Promise resolves without blocking the thread.",
+    "requiredConcepts": [
+      "event loop",
+      "call stack",
+      "microtasks vs macrotasks",
+      "Promise"
+    ],
+    "advancedConcepts": [
+      "microtask queue priority",
+      "queueMicrotask",
+      "async generator",
+      "AbortController"
+    ],
+    "difficulty": "mid",
+    "experience": "3-5",
+    "role": "Frontend Engineer"
+  },
+  {
+    "question": "Explain the React component lifecycle in the hooks era.",
+    "idealAnswer": "In the hooks era: useState manages local state; useEffect handles side effects replacing componentDidMount (empty dep array), componentDidUpdate (with deps), and componentWillUnmount (return cleanup). useLayoutEffect runs synchronously after DOM mutations. useRef persists values across renders without re-rendering. useMemo and useCallback memoize values and functions.",
+    "requiredConcepts": [
+      "useState",
+      "useEffect",
+      "cleanup function",
+      "dependency array"
+    ],
+    "advancedConcepts": [
+      "useLayoutEffect vs useEffect",
+      "custom hooks",
+      "stale closure",
+      "concurrent mode effects"
+    ],
+    "difficulty": "mid",
+    "experience": "3-5",
+    "role": "Frontend Engineer"
+  },
+  {
+    "question": "What is server-side rendering (SSR) and how does it differ from CSR?",
+    "idealAnswer": "CSR: the server sends a minimal HTML shell; JavaScript runs in the browser to fetch data and render UI \u2014 slow initial load, good for interactive apps. SSR: the server renders full HTML on each request \u2014 faster first contentful paint, better SEO. Hydration attaches React event handlers to server-rendered HTML. Next.js supports both.",
+    "requiredConcepts": [
+      "SSR",
+      "CSR",
+      "hydration",
+      "SEO"
+    ],
+    "advancedConcepts": [
+      "streaming SSR",
+      "React Server Components",
+      "static generation vs SSR",
+      "island architecture"
+    ],
+    "difficulty": "mid",
+    "experience": "3-5",
+    "role": "Frontend Engineer"
+  },
+  {
+    "question": "What is web accessibility (a11y) and how do you implement it?",
+    "idealAnswer": "Web accessibility ensures websites are usable by people with disabilities. Key practices: semantic HTML, ARIA attributes (aria-label, aria-live, role), keyboard navigation, sufficient color contrast (WCAG 4.5:1), alt text for images, and screen reader testing. Follow WCAG 2.1 guidelines.",
+    "requiredConcepts": [
+      "semantic HTML",
+      "ARIA",
+      "keyboard navigation",
+      "color contrast"
+    ],
+    "advancedConcepts": [
+      "WCAG levels",
+      "focus management in SPAs",
+      "aria-live regions",
+      "reduced motion"
+    ],
+    "difficulty": "mid",
+    "experience": "3-5",
+    "role": "Frontend Engineer"
+  },
+  {
+    "question": "What is null vs undefined in JavaScript?",
+    "idealAnswer": "undefined means a variable has been declared but not assigned a value, or a function returns nothing. null is an intentional absence of value that must be explicitly assigned. typeof undefined is 'undefined'; typeof null is 'object' (a historical bug). In loose equality, null == undefined is true.",
+    "requiredConcepts": [
+      "null vs undefined",
+      "typeof",
+      "intentional absence",
+      "equality"
+    ],
+    "advancedConcepts": [
+      "nullish coalescing",
+      "optional chaining",
+      "null object pattern",
+      "strict equality"
+    ],
+    "difficulty": "junior",
+    "experience": "0-2",
+    "role": "Frontend Engineer"
+  },
+  {
+    "question": "What is Docker and what problem does it solve?",
+    "idealAnswer": "Docker packages applications and their dependencies into lightweight, portable containers. It solves the 'works on my machine' problem. Containers share the host OS kernel (unlike VMs with their own OS), making them faster to start and more resource-efficient. Key concepts: images, containers, Dockerfile, registry.",
+    "requiredConcepts": [
+      "containerization",
+      "images vs containers",
+      "Dockerfile",
+      "portability"
+    ],
+    "advancedConcepts": [
+      "layer caching",
+      "multi-stage builds",
+      "container networking",
+      "volume mounts"
+    ],
+    "difficulty": "junior",
+    "experience": "1-3",
+    "role": "DevOps Engineer"
+  },
+  {
+    "question": "What is Kubernetes and what are its core components?",
+    "idealAnswer": "Kubernetes is a container orchestration platform automating deployment, scaling, and management of containers. Core components: Pod (smallest deployable unit), Deployment (manages pod replicas and rolling updates), Service (stable network endpoint), ConfigMap/Secret (configuration), Ingress (HTTP routing), Namespace (isolation).",
+    "requiredConcepts": [
+      "Pod",
+      "Deployment",
+      "Service",
+      "orchestration"
+    ],
+    "advancedConcepts": [
+      "StatefulSet vs Deployment",
+      "PersistentVolume",
+      "HPA",
+      "operator pattern"
+    ],
+    "difficulty": "mid",
+    "experience": "3-5",
+    "role": "DevOps Engineer"
+  },
+  {
+    "question": "What is CI/CD and what does a typical pipeline look like?",
+    "idealAnswer": "CI (Continuous Integration) automatically builds and tests code on every commit. CD (Continuous Delivery/Deployment) automates the release process. A typical pipeline: code push \u2192 build \u2192 unit tests \u2192 integration tests \u2192 static analysis \u2192 Docker image build \u2192 push to registry \u2192 deploy to staging \u2192 smoke tests \u2192 deploy to production.",
+    "requiredConcepts": [
+      "continuous integration",
+      "continuous deployment",
+      "pipeline stages",
+      "automation"
+    ],
+    "advancedConcepts": [
+      "blue-green deployment",
+      "canary releases",
+      "GitOps",
+      "pipeline as code"
+    ],
+    "difficulty": "junior",
+    "experience": "1-3",
+    "role": "DevOps Engineer"
+  },
+  {
+    "question": "What is infrastructure as code (IaC) and what are the main tools?",
+    "idealAnswer": "IaC is managing infrastructure through machine-readable configuration files rather than manual processes. Benefits: version control, reproducibility, automated provisioning. Main tools: Terraform (cloud-agnostic, declarative, HCL), Ansible (agentless, procedural, YAML), CloudFormation (AWS-specific), Pulumi (real programming languages).",
+    "requiredConcepts": [
+      "IaC definition",
+      "declarative vs procedural",
+      "reproducibility",
+      "version control"
+    ],
+    "advancedConcepts": [
+      "Terraform state management",
+      "modules",
+      "drift detection",
+      "immutable infrastructure"
+    ],
+    "difficulty": "mid",
+    "experience": "3-5",
+    "role": "DevOps Engineer"
+  },
+  {
+    "question": "What is the difference between horizontal and vertical scaling?",
+    "idealAnswer": "Vertical scaling (scale up) adds more resources (CPU, RAM) to an existing server \u2014 simple but has a hard limit and single point of failure. Horizontal scaling (scale out) adds more servers and distributes load \u2014 more complex but theoretically unlimited and fault-tolerant. Cloud-native systems prefer horizontal scaling.",
+    "requiredConcepts": [
+      "vertical scaling",
+      "horizontal scaling",
+      "load balancing",
+      "stateless design"
+    ],
+    "advancedConcepts": [
+      "auto-scaling policies",
+      "consistent hashing",
+      "stateful vs stateless services",
+      "database sharding"
+    ],
+    "difficulty": "junior",
+    "experience": "1-3",
+    "role": "DevOps Engineer"
+  },
+  {
+    "question": "What is observability and what are its three pillars?",
+    "idealAnswer": "Observability is the ability to understand the internal state of a system by examining its outputs. The three pillars: Logs (timestamped records of events), Metrics (numerical measurements over time \u2014 latency, error rate, throughput), Traces (end-to-end tracking of a request across services). Tools: ELK Stack, Prometheus/Grafana, Jaeger/Zipkin.",
+    "requiredConcepts": [
+      "logs",
+      "metrics",
+      "traces",
+      "monitoring"
+    ],
+    "advancedConcepts": [
+      "OpenTelemetry",
+      "SLI/SLO/SLA",
+      "cardinality in metrics",
+      "distributed tracing propagation"
+    ],
+    "difficulty": "mid",
+    "experience": "3-5",
+    "role": "DevOps Engineer"
+  },
+  {
+    "question": "What is a load balancer and what algorithms does it use?",
+    "idealAnswer": "A load balancer distributes incoming traffic across multiple backend servers. Algorithms: Round Robin (sequential), Weighted Round Robin (higher capacity servers get more traffic), Least Connections (routes to server with fewest active connections), IP Hash (same client always hits same server). Layer 4 (TCP) vs Layer 7 (HTTP) load balancers.",
+    "requiredConcepts": [
+      "traffic distribution",
+      "round robin",
+      "least connections",
+      "high availability"
+    ],
+    "advancedConcepts": [
+      "layer 4 vs layer 7",
+      "sticky sessions",
+      "health checks",
+      "global load balancing"
+    ],
+    "difficulty": "mid",
+    "experience": "3-5",
+    "role": "DevOps Engineer"
+  },
+  {
+    "question": "What is HTTPS and how does TLS handshake work?",
+    "idealAnswer": "HTTPS is HTTP over TLS. TLS handshake: 1) Client sends ClientHello (supported TLS versions, cipher suites). 2) Server responds with ServerHello and certificate. 3) Client verifies certificate against trusted CAs. 4) Key exchange (ECDHE) to establish shared secret. 5) Both sides derive session keys. 6) Encrypted communication begins. TLS 1.3 reduces handshake to 1 round trip.",
+    "requiredConcepts": [
+      "TLS handshake",
+      "certificate",
+      "symmetric vs asymmetric encryption",
+      "CA"
+    ],
+    "advancedConcepts": [
+      "TLS 1.3 improvements",
+      "HSTS",
+      "certificate pinning",
+      "OCSP stapling"
+    ],
+    "difficulty": "mid",
+    "experience": "3-5",
+    "role": "DevOps Engineer"
+  },
+  {
+    "question": "What is a Dockerfile and what are best practices for writing one?",
+    "idealAnswer": "A Dockerfile is a script of instructions for building a Docker image. Best practices: use official minimal base images (alpine), use multi-stage builds to reduce image size, order instructions from least to most frequently changed to leverage layer caching, avoid running as root, use .dockerignore, pin dependency versions.",
+    "requiredConcepts": [
+      "base image",
+      "layers",
+      "build context",
+      "multi-stage builds"
+    ],
+    "advancedConcepts": [
+      "layer caching strategy",
+      "distroless images",
+      "BuildKit",
+      "image scanning"
+    ],
+    "difficulty": "mid",
+    "experience": "3-5",
+    "role": "DevOps Engineer"
+  },
+  {
+    "question": "What is blue-green deployment and how does it reduce risk?",
+    "idealAnswer": "Blue-green deployment maintains two identical production environments: blue (current live) and green (new version). The new version is deployed to green and tested. Traffic is switched from blue to green instantly via load balancer. If issues arise, rollback is instant by switching back to blue \u2014 zero downtime and instant rollback.",
+    "requiredConcepts": [
+      "zero downtime",
+      "instant rollback",
+      "traffic switching",
+      "environment parity"
+    ],
+    "advancedConcepts": [
+      "database migration challenges",
+      "canary vs blue-green",
+      "feature flags",
+      "service mesh traffic splitting"
+    ],
+    "difficulty": "senior",
+    "experience": "5+",
+    "role": "DevOps Engineer"
+  },
+  {
+    "question": "What is the difference between a process and a thread?",
+    "idealAnswer": "A process is an independent program in execution with its own memory space and OS resources. Processes are isolated. A thread is a unit of execution within a process, sharing the same memory space. Threads are lighter to create, communicate via shared memory (requires synchronization), and context switching is faster than between processes.",
+    "requiredConcepts": [
+      "process isolation",
+      "shared memory",
+      "thread creation cost",
+      "context switching"
+    ],
+    "advancedConcepts": [
+      "thread safety",
+      "race conditions",
+      "mutex vs semaphore",
+      "green threads vs OS threads"
+    ],
+    "difficulty": "junior",
+    "experience": "1-3",
+    "role": "Fullstack Engineer"
+  },
+  {
+    "question": "What is an API gateway and why is it used in microservices?",
+    "idealAnswer": "An API gateway is a single entry point for all client requests to a microservices backend. It handles: authentication/authorization, rate limiting, request routing, SSL termination, load balancing, and caching. Benefits: decouples clients from services, reduces client-side complexity. Examples: Kong, AWS API Gateway, Nginx.",
+    "requiredConcepts": [
+      "single entry point",
+      "routing",
+      "authentication",
+      "rate limiting"
+    ],
+    "advancedConcepts": [
+      "BFF pattern",
+      "gateway aggregation",
+      "circuit breaker in gateway",
+      "GraphQL as gateway"
+    ],
+    "difficulty": "mid",
+    "experience": "3-5",
+    "role": "Fullstack Engineer"
+  },
+  {
+    "question": "What is the difference between SQL and NoSQL databases?",
+    "idealAnswer": "SQL databases are relational, use structured schemas, support ACID transactions, and are best for complex queries and relationships. NoSQL databases are schema-flexible and optimized for specific access patterns. Types: document (MongoDB), key-value (Redis), column-family (Cassandra), graph (Neo4j). Use SQL for financial data, NoSQL for high-volume flexible-schema workloads.",
+    "requiredConcepts": [
+      "relational vs non-relational",
+      "ACID",
+      "schema flexibility",
+      "access patterns"
+    ],
+    "advancedConcepts": [
+      "CAP theorem",
+      "BASE consistency",
+      "polyglot persistence",
+      "NewSQL"
+    ],
+    "difficulty": "junior",
+    "experience": "1-3",
+    "role": "Fullstack Engineer"
+  },
+  {
+    "question": "What is caching and what are common caching strategies?",
+    "idealAnswer": "Caching stores frequently accessed data in fast storage to reduce latency and backend load. Strategies: Cache-aside (app checks cache first, loads from DB on miss), Write-through (write to cache and DB simultaneously), Write-behind (async flush to DB), Read-through (cache loads from DB on miss automatically). Consider TTL, eviction policies (LRU, LFU), and cache invalidation.",
+    "requiredConcepts": [
+      "cache-aside",
+      "TTL",
+      "cache invalidation",
+      "eviction policies"
+    ],
+    "advancedConcepts": [
+      "cache stampede",
+      "distributed cache consistency",
+      "Caffeine vs Redis",
+      "cache warming"
+    ],
+    "difficulty": "mid",
+    "experience": "1-3",
+    "role": "Fullstack Engineer"
+  },
+  {
+    "question": "What is OAuth 2.0 and how does the authorization code flow work?",
+    "idealAnswer": "OAuth 2.0 is an authorization framework for third-party access without exposing credentials. Authorization code flow: 1) Redirect to provider with client_id. 2) User authenticates and consents. 3) Provider redirects back with authorization code. 4) App exchanges code for access token server-to-server. 5) App uses token to access APIs.",
+    "requiredConcepts": [
+      "authorization code flow",
+      "access token",
+      "redirect URI",
+      "scopes"
+    ],
+    "advancedConcepts": [
+      "PKCE",
       "refresh token rotation",
-      "JWK endpoint for public key distribution",
-      "token revocation challenges",
-      "alg:none attack and algorithm confusion attacks"
+      "OpenID Connect",
+      "implicit flow deprecation"
     ],
     "difficulty": "mid",
-    "experience": "3-5"
+    "experience": "3-5",
+    "role": "Fullstack Engineer"
+  },
+  {
+    "question": "What is WebSocket and when would you use it over HTTP?",
+    "idealAnswer": "WebSocket is a full-duplex communication protocol over a single TCP connection. Unlike HTTP (request-response), WebSocket allows the server to push data to the client at any time. Use WebSockets for real-time features: chat, live notifications, collaborative editing. Use HTTP for standard request-response patterns.",
+    "requiredConcepts": [
+      "full-duplex",
+      "server push",
+      "persistent connection",
+      "real-time"
+    ],
+    "advancedConcepts": [
+      "WebSocket handshake upgrade",
+      "Socket.IO fallbacks",
+      "scaling WebSockets",
+      "Server-Sent Events"
+    ],
+    "difficulty": "mid",
+    "experience": "3-5",
+    "role": "Fullstack Engineer"
+  },
+  {
+    "question": "What is the difference between authentication and authorization?",
+    "idealAnswer": "Authentication (AuthN) is verifying who you are \u2014 proving your identity. Authorization (AuthZ) is verifying what you are allowed to do \u2014 checking permissions after identity is established. Authentication always comes first. Common pattern: JWT carries identity (authN), roles/scopes define permissions (authZ).",
+    "requiredConcepts": [
+      "authentication",
+      "authorization",
+      "identity",
+      "permissions"
+    ],
+    "advancedConcepts": [
+      "RBAC vs ABAC",
+      "JWT claims for authZ",
+      "OAuth scopes",
+      "principle of least privilege"
+    ],
+    "difficulty": "junior",
+    "experience": "0-2",
+    "role": "Fullstack Engineer"
+  },
+  {
+    "question": "What is a message queue and when would you use one?",
+    "idealAnswer": "A message queue is asynchronous service-to-service communication where producers send messages to a queue and consumers process them independently. Use cases: decoupling services, handling traffic spikes, background job processing, fan-out notifications. Examples: RabbitMQ, Kafka, AWS SQS. Key concepts: producer, consumer, broker, dead letter queue.",
+    "requiredConcepts": [
+      "async communication",
+      "decoupling",
+      "producer/consumer",
+      "broker"
+    ],
+    "advancedConcepts": [
+      "dead letter queue",
+      "at-least-once vs exactly-once",
+      "message ordering",
+      "backpressure"
+    ],
+    "difficulty": "mid",
+    "experience": "3-5",
+    "role": "Fullstack Engineer"
   }
 ]

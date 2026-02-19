@@ -24,3 +24,10 @@ spring:
 
 server:
   port: 8080
+  address: 0.0.0.0
+
+embedding:
+  service:
+    # Falls back to localhost for local dev if env var not set
+    url: ${EMBEDDING_SERVICE_URL:http://localhost:8000}
+    timeout-seconds: 5

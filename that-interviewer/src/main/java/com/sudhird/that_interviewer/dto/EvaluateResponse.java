@@ -14,10 +14,12 @@ public record EvaluateResponse(
         String experience,
         Instant submittedAt,
 
-        // ── Phase 2: score breakdown ──────────────────────────────────────────
         double finalScore,
         double requiredConceptScore,
         double advancedBonus,
+        Double similarityScore,          // null when embedding service was down
+        boolean embeddingUsed,           // tells client which scoring path was taken
+
         List<String> matchedRequired,
         List<String> matchedAdvanced,
 
@@ -34,6 +36,8 @@ public record EvaluateResponse(
                 orZero(r.getFinalScore()),
                 orZero(r.getRequiredConceptScore()),
                 orZero(r.getAdvancedBonus()),
+                r.getSimilarityScore(),
+                Boolean.TRUE.equals(r.getEmbeddingUsed()),
                 splitCsv(r.getMatchedRequired()),
                 splitCsv(r.getMatchedAdvanced()),
                 "evaluated"

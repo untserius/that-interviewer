@@ -8,14 +8,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class Question {
-
     private String question;
     private String idealAnswer;
     private List<String> requiredConcepts;
     private List<String> advancedConcepts;
     private String difficulty;
     private String experience;
-
-    // Derived: index position in the catalog (used as a stable ID for responses)
+    private String role;
     private Integer id;
 }

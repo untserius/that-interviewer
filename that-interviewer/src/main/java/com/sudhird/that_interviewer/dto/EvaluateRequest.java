@@ -8,5 +8,8 @@ public record EvaluateRequest(
         Integer questionId,
 
         @NotBlank(message = "answer must not be blank")
-        String answer
+        String answer,
+
+        // Optional — links this answer to a session for summary
+        String sessionId
 ) {}

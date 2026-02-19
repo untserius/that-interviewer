@@ -11,5 +11,7 @@ public interface EvaluationRecordRepository extends JpaRepository<EvaluationReco
 
     List<EvaluationRecord> findByQuestionId(Integer questionId);
 
+
+    List<EvaluationRecord> findBySessionId(String sessionId);
     List<EvaluationRecord> findByExperience(String experience);
 }
